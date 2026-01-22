@@ -1,6 +1,7 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const passport = require("passport");
 
 // DB
@@ -8,7 +9,7 @@ const connectDB = require("./config/db");
 
 // Routes
 const authRouter = require("./routes/authrouter");
-const blogRouter = require("./routes/blogrouter");          // ✅ exact filename
+const blogRouter = require("./routes/blogrouter");
 const adminCourseRouter = require("./routes/admincourserouter");
 const lectureRouter = require("./routes/lecturerouter");
 const paymentRouter = require("./routes/paymentrouter");
@@ -21,29 +22,22 @@ const {
   getCourseBySlug,
   getCourseById,
 } = require("./controllers/coursecontrollers");
-
 const { createCourseReview } = require("./controllers/reviewcontrollers");
 
 // Middleware
 const { protect } = require("./middleware/authmiddleware");
 
-// Passport config
+// Passport
 require("./config/passport");
-
-// Load env
-dotenv.config();
 
 const app = express();
 
-// Connect DB
-connectDB();
-
-// Middlewares
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
-// Health Check
+// Health check
 app.get("/api/test", (req, res) => {
   res.status(200).json({ success: true, message: "Backend is working 🚀" });
 });
@@ -63,7 +57,7 @@ app.get("/api/courses/:slug", getCourseBySlug);
 app.get("/api/courses/id/:id", getCourseById);
 app.post("/api/courses/:id/reviews", protect, createCourseReview);
 
-// Global Error Handler (VERY IMPORTANT for Render)
+// Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.statusCode || 500).json({
@@ -72,8 +66,16 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server
+// Start server AFTER DB
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ DB connection failed:", err.message);
+    process.exit(1);
+  });
