@@ -13,7 +13,7 @@ const adminCourseRouter = require("./routes/admincourserouter") || require("./ro
 const lectureRouter = require("./routes/lecturerouter") || require("./routes/placeholder");
 const paymentRouter = require("./routes/paymentrouter") || require("./routes/placeholder");
 const adminRouter = require("./routes/adminrouter") || require("./routes/placeholder");
-const instructorRoutes = require("./routes/instructorroutes") || require("./routes/placeholder");
+const instructorRoutes = require("./routes/instructorRoutes") || require("./routes/placeholder");
 
 // Controllers (basic placeholders if missing)
 const {
