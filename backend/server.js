@@ -9,7 +9,7 @@ const connectDB = require("./config/db");
 
 // Routes
 const authRouter = require("./routes/authrouter");
-const blogRouter = require("./routes/blogrouter");
+
 const adminCourseRouter = require("./routes/admincourserouter");
 const lectureRouter = require("./routes/lecturerouter");
 const paymentRouter = require("./routes/paymentrouter");
@@ -44,7 +44,7 @@ app.get("/api/test", (req, res) => {
 
 // Routes
 app.use("/api/auth", authRouter);
-app.use("/api/blogs", blogRouter);
+
 app.use("/api/admin/courses", adminCourseRouter);
 app.use("/api/lectures", lectureRouter);
 app.use("/api/payment", paymentRouter);
