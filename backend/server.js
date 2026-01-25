@@ -1,55 +1,89 @@
+// server.js
+require("dotenv").config();
+
 const express = require("express");
-const path = require("path");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const passport = require("passport");
-const connection = require("./config/db.js");
-const authrouter = require(path.join(__dirname, "./routes/authrouter.js")); // Import router
-const blogRouter = require(path.join(__dirname, "./routes/blogrouter.js"));
-const adminCourseRouter = require(path.join(__dirname, "./routes/admincourserouter.js"));
-const lectureRouter = require(path.join(__dirname, "./routes/lecturerouter.js"));
-const paymentRouter = require(path.join(__dirname, "./routes/paymentrouter.js"));
-const adminRouter = require(path.join(__dirname, "./routes/adminrouter.js"));
-const instructorRoutes = require("./routes/instructorrouter.js");
-const { getCourses, getCourseBySlug, getCourseById } = require("./controllers/coursecontrollers.js");
-const { createCourseReview } = require("./controllers/reviewcontrollers.js"); // Import review controller
-const { protect } = require('./middleware/authmiddleware'); // Import protect middleware
-require("./config/passport");
 
-// .env config load
-dotenv.config();
+// Database
+const connectDB = require("./config/db");
 
-const app = express();
-connection();
+// Routers
+const authRouter = require("./routes/authrouter");
+
+const adminCourseRouter = require("./routes/admincourserouter");
+const lectureRouter = require("./routes/lecturerouter");
+const paymentRouter = require("./routes/paymentrouter");
+const adminRouter = require("./routes/adminrouter");
+const instructorRoutes = require("./routes/instructorrouter");
+
+// Controllers
+const {
+  getCourses,
+  getCourseBySlug,
+  getCourseById,
+} = require("./controllers/coursecontrollers");
+
+const {
+  createCourseReview,
+} = require("./controllers/reviewcontrollers");
 
 // Middleware
-app.use(express.json());
+const { protect } = require("./middleware/authmiddleware");
+
+// Passport config
+require("./config/passport");
+
+const app = express();
+
+/* ------------------- MIDDLEWARE ------------------- */
 app.use(cors());
+app.use(express.json());
 app.use(passport.initialize());
 
-// ✅ Test Route
+/* ------------------- HEALTH CHECK ------------------- */
 app.get("/api/test", (req, res) => {
-  res.json({ message: "Backend is working 🚀" });
+  res.status(200).json({
+    success: true,
+    message: "Backend is working 🚀",
+  });
 });
 
-// ✅ Use Auth Routes
-app.use("/api/auth", authrouter);  // 👈 yaha authrouter pass karo
-app.use("/api/blogs", blogRouter);
+/* ------------------- ROUTES ------------------- */
+app.use("/api/auth", authRouter);
+
 app.use("/api/admin/courses", adminCourseRouter);
 app.use("/api/lectures", lectureRouter);
 app.use("/api/payment", paymentRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/instructors", instructorRoutes);
 
-// Course Routes
+/* ------------------- COURSE APIs ------------------- */
 app.get("/api/courses", getCourses);
 app.get("/api/courses/:slug", getCourseBySlug);
 app.get("/api/courses/id/:id", getCourseById);
-app.post("/api/courses/:id/reviews", protect, createCourseReview); // Add review route
-app.use("/api/instructors", instructorRoutes);
+app.post("/api/courses/:id/reviews", protect, createCourseReview);
 
-const PORT = process.env.PORT || 5001; // Changed port to 5001 to avoid EADDRINUSE
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}`);
+/* ------------------- ERROR HANDLER ------------------- */
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+  });
 });
 
+/* ------------------- START SERVER ------------------- */
+const PORT = process.env.PORT || 5000;
+
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ DB connection failed:", err.message);
+    process.exit(1);
+  });
 
