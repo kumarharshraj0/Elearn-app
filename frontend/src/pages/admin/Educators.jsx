@@ -24,7 +24,7 @@ export default function Educators() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const ADMIN_API_BASE_URL = 'http://localhost:5000/api/admin/users'; // Assuming admin user management endpoint
+  const ADMIN_API_BASE_URL = 'https://elearn-app-backend.onrender.com/api/admin/users'; // Assuming admin user management endpoint
 
   useEffect(() => {
     fetchEducators();

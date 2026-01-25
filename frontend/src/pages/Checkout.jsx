@@ -40,7 +40,7 @@ export default function Checkout() {
     setLoading(true);
     try {
       // Create order on backend
-      const orderResponse = await fetch('http://localhost:5000/api/payment/orders', {
+      const orderResponse = await fetch('https://elearn-app-backend.onrender.com/api/payment/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default function Checkout() {
 
           try {
             // Verify payment on backend
-            const verifyResponse = await fetch('http://localhost:5000/api/payment/verify', {
+            const verifyResponse = await fetch('https://elearn-app-backend.onrender.com/api/payment/verify', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

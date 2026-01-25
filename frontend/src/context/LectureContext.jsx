@@ -9,7 +9,7 @@ export const LectureProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_BASE_URL = "http://localhost:5000/api/lectures";
+  const API_BASE_URL = "https://elearn-app-backend.onrender.com/api/lectures";
 
   // Fetch all lectures for a course
   const fetchLectures = useCallback(async (courseId) => {

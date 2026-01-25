@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const API_BASE_URL = 'http://localhost:5000/api/auth';
+  const API_BASE_URL = 'https://elearn-app-backend.onrender.com/api/auth';
 
   // ✅ Load token + user on mount
   useEffect(() => {

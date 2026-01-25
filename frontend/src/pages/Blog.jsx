@@ -21,7 +21,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/blogs");
+        const res = await axios.get("https://elearn-app-backend.onrender.com/api/blogs");
         setArticles(res.data);
       } catch (err) {
         console.error("Error fetching blogs:", err);
