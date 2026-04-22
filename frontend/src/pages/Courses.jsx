@@ -64,8 +64,8 @@ export default function CoursePage() {
   return (
     <div className="bg-white">
       {/* HERO SECTION */}
-      <section className="bg-[#0e2d25] text-white h-[70vh] flex flex-col justify-center items-center text-center px-6 py-[45vh]">
-        <h1 className="text-5xl font-bold mb-6">
+      <section className="bg-[#0F172A] text-white h-[70vh] flex flex-col justify-center items-center text-center px-6 py-[45vh]">
+        <h1 className="text-5xl font-semibold mb-6">
           Learn Without Limits
         </h1>
         <p className="text-lg max-w-2xl text-gray-200 leading-relaxed">
@@ -75,7 +75,7 @@ export default function CoursePage() {
         <div className="mt-8">
           <a
             href="#courses"
-            className="px-8 py-3 bg-lime-400 text-black font-semibold rounded-full shadow-lg hover:bg-lime-500 transition"
+            className="px-10 py-4 bg-[#6366F1] text-white font-semibold rounded-full shadow-lg hover:bg-[#4F46E5] transition shadow-indigo-500/30"
           >
             Browse Courses
           </a>
@@ -83,74 +83,14 @@ export default function CoursePage() {
       </section>
 
       {/* FEATURED COURSES */}
-      <section className="py-20 px-6 md:px-12 lg:px-20">
-        <h2 className="text-4xl font-bold text-center text-[#0e2d25] mb-6">
-          Our Featured Courses
-        </h2>
-        <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-          Our featured courses inspire growth with expert instruction and
-          practical skills.
-        </p>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {loading
-            ? Array.from({ length: 3 }).map((_, i) => (
-                <CourseSkeleton key={i} />
-              ))
-            : (courses || []).slice(0, 3).map((course) => (
-                <div
-                  key={course._id}
-                  className="bg-white rounded-2xl shadow-md overflow-hidden transition group h-[450px] flex flex-col hover:bg-[#0e2d25]"
-                >
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="w-full h-52 object-cover group-hover:opacity-80 transition-all duration-500"
-                  />
-                  <div className="p-6 flex flex-col flex-grow">
-                    <p className="text-sm text-green-600 font-medium mb-1 group-hover:text-lime-300 transition">
-                      {course.category}
-                    </p>
-                    <h3 className="font-semibold text-xl text-[#0e2d25] mb-2 group-hover:text-white transition">
-                      {course.title}
-                    </h3>
-
-                    <div className="flex items-center gap-3 mb-4">
-                      <img
-                        src={course.instructor?.profileImage}
-                        alt={course.instructor?.name}
-                        className="w-10 h-10 rounded-full object-cover border"
-                      />
-                      <div>
-                        <p className="text-sm font-medium group-hover:text-white transition">
-                          {course.instructor?.name}
-                        </p>
-                        <p className="text-xs text-gray-500 group-hover:text-gray-300 transition">
-                          {course.instructor?.bio}
-                        </p>
-                      </div>
-                    </div>
-
-                    {course.slug && (
-                      <Link
-                        to={`/courses/${course.slug}`}
-                        className="mt-auto inline-block text-center px-5 py-2 bg-lime-400 text-black rounded-full font-medium hover:bg-lime-500 transition"
-                      >
-                        View Course →
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              ))}
-        </div>
-      </section>
 
       {/* TOP COURSES */}
       <section
         id="courses"
-        className="py-16 px-6 md:px-12 lg:px-20 bg-gray-50"
+        className="py-24 px-6 md:px-12 lg:px-20 bg-white"
       >
-        <h2 className="text-3xl font-bold text-center text-[#0e2d25] mb-8">
+        <h2 className="text-4xl font-semibold text-center text-[#0F172A] mb-10 tracking-tight">
           Top Courses to Get You Started
         </h2>
 
@@ -160,11 +100,10 @@ export default function CoursePage() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-6 py-2 rounded-full font-medium transition ${
-                activeCategory === cat
-                  ? "bg-[#0e2d25] text-white"
-                  : "bg-white border text-gray-700 hover:bg-gray-100"
-              }`}
+              className={`px-8 py-3 rounded-full font-semibold transition shadow-sm ${activeCategory === cat
+                  ? "bg-[#6366F1] text-white shadow-indigo-500/20 shadow-lg"
+                  : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                }`}
             >
               {cat}
             </button>
@@ -175,53 +114,53 @@ export default function CoursePage() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
-                <CourseSkeleton key={i} />
-              ))
+              <CourseSkeleton key={i} />
+            ))
             : (filteredCourses || []).map((course) => (
-                <div
-                  key={course._id}
-                  className="bg-white rounded-2xl shadow-md overflow-hidden transition group h-[450px] flex flex-col hover:bg-[#0e2d25]"
-                >
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="w-full h-52 object-cover group-hover:opacity-80 transition-all duration-500"
-                  />
-                  <div className="p-6 flex flex-col flex-grow">
-                    <p className="text-sm text-green-600 font-medium mb-1 group-hover:text-lime-300 transition">
-                      {course.category}
-                    </p>
-                    <h3 className="font-semibold text-xl text-[#0e2d25] mb-2 group-hover:text-white transition">
-                      {course.title}
-                    </h3>
+              <div
+                key={course._id}
+                className="bg-white rounded-3xl shadow-sm overflow-hidden transition group h-[480px] flex flex-col hover:shadow-2xl border border-slate-100 hover:border-indigo-100"
+              >
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="w-full h-52 object-cover group-hover:opacity-80 transition-all duration-500"
+                />
+                <div className="p-6 flex flex-col flex-grow">
+                  <p className="text-sm text-[#6366F1] font-semibold uppercase tracking-widest mb-2">
+                    {course.category}
+                  </p>
+                  <h3 className="font-semibold text-xl text-[#0F172A] mb-4 group-hover:text-[#6366F1] transition">
+                    {course.title}
+                  </h3>
 
-                    <div className="flex items-center gap-3 mb-4">
-                      <img
-                        src={course.instructor?.profileImage}
-                        alt={course.instructor?.name}
-                        className="w-10 h-10 rounded-full object-cover border"
-                      />
-                      <div>
-                        <p className="text-sm font-medium group-hover:text-white transition">
-                          {course.instructor?.name}
-                        </p>
-                        <p className="text-xs text-gray-500 group-hover:text-gray-300 transition">
-                          {course.instructor?.bio}
-                        </p>
-                      </div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <img
+                      src={course.instructor?.profileImage}
+                      alt={course.instructor?.name}
+                      className="w-10 h-10 rounded-full object-cover border"
+                    />
+                    <div>
+                      <p className="text-sm font-medium group-hover:text-white transition">
+                        {course.instructor?.name}
+                      </p>
+                      <p className="text-xs text-gray-500 group-hover:text-gray-300 transition">
+                        {course.instructor?.bio}
+                      </p>
                     </div>
-
-                    {course.slug && (
-                      <Link
-                        to={`/courses/${course.slug}`}
-                        className="mt-auto inline-block text-center px-5 py-2 bg-lime-400 text-black rounded-full font-medium hover:bg-lime-500 transition"
-                      >
-                        View Course →
-                      </Link>
-                    )}
                   </div>
+
+                  {course.slug && (
+                    <Link
+                      to={`/courses/${course.slug}`}
+                      className="mt-auto inline-block text-center px-8 py-3 bg-[#6366F1] text-white rounded-full font-semibold hover:bg-[#4F46E5] transition shadow-md shadow-indigo-500/20"
+                    >
+                      View Course →
+                    </Link>
+                  )}
                 </div>
-              ))}
+              </div>
+            ))}
         </div>
       </section>
 

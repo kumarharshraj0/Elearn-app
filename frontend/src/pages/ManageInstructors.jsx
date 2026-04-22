@@ -95,13 +95,13 @@ export default function ManageInstructors() {
     return <div className="text-center py-10 text-red-500">{error}</div>;
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen md:py-30 lg:py-30">
+    <div className="p-10 bg-slate-50 min-h-screen lg:pt-32">
       {/* Header */}
-      <div className="flex justify-between items-center mb-10">
-        <h1 className="text-3xl font-bold text-[#0e2d25]">Manage Instructors</h1>
+      <div className="flex justify-between items-center mb-12">
+        <h1 className="text-4xl font-semibold text-[#0F172A] tracking-tight">Manage Instructors</h1>
         <button
           onClick={openAddModal}
-          className="flex items-center gap-2 bg-lime-500 text-white px-5 py-2 rounded-md font-medium hover:bg-lime-600 transition"
+          className="flex items-center gap-2 bg-[#6366F1] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20"
         >
           <PlusCircle size={20} /> Add Instructor
         </button>
@@ -124,26 +124,26 @@ export default function ManageInstructors() {
               alt={inst.name}
               className="w-full h-48 object-cover"
             />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-[#0e2d25] mb-2">
+            <div className="p-8">
+              <h3 className="text-xl font-semibold text-[#0F172A] mb-2 group-hover:text-[#6366F1] transition">
                 {inst.name}
               </h3>
               <p className="text-gray-500 text-sm mb-2 line-clamp-2">
                 {inst.bio}
               </p>
-              <p className="text-sm font-medium text-lime-700 mb-4">
-                Experience: {inst.experience}
+              <p className="text-sm font-semibold text-[#6366F1] mb-6 uppercase tracking-widest">
+                Exp: {inst.experience}
               </p>
-              <div className="flex justify-between gap-2">
+              <div className="flex justify-between gap-3">
                 <button
                   onClick={() => openEditModal(inst)}
-                  className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md flex items-center justify-center gap-1"
+                  className="flex-1 bg-slate-100 text-slate-600 py-2.5 rounded-lg flex items-center justify-center gap-2 font-semibold hover:bg-slate-200 transition"
                 >
                   <Edit size={18} /> Edit
                 </button>
                 <button
                   onClick={() => handleDelete(inst._id)}
-                  className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md flex items-center justify-center gap-1"
+                  className="flex-1 bg-red-50 text-red-500 py-2.5 rounded-lg flex items-center justify-center gap-2 font-semibold hover:bg-red-500 hover:text-white transition"
                 >
                   <Trash2 size={18} /> Delete
                 </button>
@@ -157,7 +157,7 @@ export default function ManageInstructors() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
           <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-2xl font-bold text-[#0e2d25] mb-6">
+            <h2 className="text-2xl font-semibold text-[#0e2d25] mb-6">
               {currentInstructor ? "Edit Instructor" : "Add Instructor"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -192,9 +192,9 @@ export default function ManageInstructors() {
               />
 
               {/* File Upload */}
-              <div className="flex items-center gap-3">
-                <label className="flex items-center gap-2 bg-lime-100 px-3 py-2 rounded-md cursor-pointer border border-lime-400 hover:bg-lime-200 transition">
-                  <Upload size={18} /> Choose Image
+              <div className="flex items-center gap-4">
+                <label className="flex items-center gap-2 bg-indigo-50 px-6 py-3 rounded-xl cursor-pointer border border-indigo-200 hover:bg-indigo-100 transition text-[#6366F1] font-semibold">
+                  <Upload size={18} /> Choose Profile Image
                   <input
                     type="file"
                     accept="image/*"
@@ -217,9 +217,9 @@ export default function ManageInstructors() {
                 </button>
                 <button
                   type="submit"
-                  className="bg-lime-500 hover:bg-lime-600 text-white px-6 py-2 rounded-md"
+                  className="bg-[#6366F1] hover:bg-[#4F46E5] text-white px-8 py-3 rounded-full font-semibold shadow-lg shadow-indigo-500/20"
                 >
-                  {currentInstructor ? "Update" : "Add"}
+                  {currentInstructor ? "Update Instructor" : "Create Instructor"}
                 </button>
               </div>
             </form>

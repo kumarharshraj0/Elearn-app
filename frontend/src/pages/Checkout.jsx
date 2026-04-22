@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { useAuth } from '../context/AuthContext';
 
 export default function Checkout() {
@@ -40,7 +40,7 @@ export default function Checkout() {
     setLoading(true);
     try {
       // Create order on backend
-      const orderResponse = await fetch('https://elearn-app-backend.onrender.com/api/payment/orders', {
+      const orderResponse = await fetch('https://elearn.hharshportfolio.com/api/payment/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default function Checkout() {
 
           try {
             // Verify payment on backend
-            const verifyResponse = await fetch('https://elearn-app-backend.onrender.com/api/payment/verify', {
+            const verifyResponse = await fetch('https://elearn.hharshportfolio.com/api/payment/verify', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -125,50 +125,32 @@ export default function Checkout() {
 
   if (!course) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <h2 className="text-2xl font-bold text-red-600">Course not selected for checkout.</h2>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+        <h2 className="text-2xl font-semibold text-red-500 bg-red-50 px-8 py-4 rounded-2xl border border-red-100">Course not selected for checkout.</h2>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center py-20 px-4">
+      <div className="max-w-md w-full space-y-8 bg-white p-12 rounded-3xl shadow-xl border border-slate-100">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="text-center text-4xl font-semibold text-[#0F172A] tracking-tight">
             Checkout
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Complete your purchase for {course.title}
+          <p className="mt-4 text-center text-slate-500 font-medium">
+            Complete your purchase for <span className="text-[#6366F1]">{course.title}</span>
           </p>
         </div>
         <div className="mt-8 space-y-6">
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="course-name" className="sr-only">
-                Course Name
-              </label>
-              <input
-                id="course-name"
-                name="course-name"
-                type="text"
-                readOnly
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-t-md focus:outline-none"
-                value={course.title}
-              />
+          <div className="space-y-4 rounded-2xl overflow-hidden border border-slate-200">
+            <div className="bg-slate-50 p-4 border-b border-slate-200">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-widest block mb-1">Course Title</label>
+              <div className="text-[#0F172A] font-semibold text-lg">{course.title}</div>
             </div>
-            <div>
-              <label htmlFor="course-price" className="sr-only">
-                Course Price
-              </label>
-              <input
-                id="course-price"
-                name="course-price"
-                type="text"
-                readOnly
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-b-md focus:outline-none"
-                value={`INR ${course.price}`}
-              />
+            <div className="bg-slate-50 p-4">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-widest block mb-1">Total Amount</label>
+              <div className="text-[#6366F1] font-semibold text-2xl">${course.price}</div>
             </div>
           </div>
 
@@ -177,9 +159,9 @@ export default function Checkout() {
               type="button"
               onClick={handlePayment}
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+              className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-lg font-semibold rounded-2xl text-white bg-[#6366F1] hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20"
             >
-              {loading ? 'Processing...' : 'Pay with Razorpay'}
+              {loading ? 'Processing...' : 'Secure Payment'}
             </button>
           </div>
         </div>

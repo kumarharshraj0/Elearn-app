@@ -1,73 +1,89 @@
 import React from "react";
-import { Layers, UserCheck, DollarSign, Star, BookOpen } from "lucide-react";
+import { Layers, UserCheck, DollarSign, Star } from "lucide-react";
 
 const features = [
   {
     id: 1,
-    icon: <Layers className="w-8 h-8 text-lime-400" />,
-    title: "Flexible, On-Demand Learning",
-    desc: "Access courses anytime, anywhere, and learn at your own pace.",
+    icon: <Layers className="w-6 h-6 text-[#6366F1]" />,
+    title: "Flexible Learning",
+    desc: "Access courses anytime and learn at your own pace.",
   },
   {
     id: 2,
-    icon: <UserCheck className="w-8 h-8 text-lime-400" />,
+    icon: <UserCheck className="w-6 h-6 text-[#6366F1]" />,
     title: "Expert Instructors",
-    desc: "Learn from industry leaders and professionals with real-world experience.",
+    desc: "Learn from industry leaders with real-world experience.",
   },
   {
     id: 3,
-    icon: <DollarSign className="w-8 h-8 text-lime-400" />,
-    title: "Affordable & Accessible",
-    desc: "High-quality education at prices designed to be accessible for everyone.",
+    icon: <DollarSign className="w-6 h-6 text-[#6366F1]" />,
+    title: "Affordable Pricing",
+    desc: "High-quality education accessible for everyone.",
   },
   {
     id: 4,
-    icon: <Star className="w-8 h-8 text-lime-400" />,
-    title: "Quality Learning Experience",
-    desc: "Engaging courses with interactive tools and strong student support.",
-  },
-  {
-    id: 5,
-    icon: <BookOpen className="w-8 h-8 text-lime-400" />,
-    title: "Innovative Tools",
-    desc: "Cutting-edge features to make your learning journey smooth and enjoyable.",
-  },
-
-  {
-    id: 6,
-    icon: <BookOpen className="w-8 h-8 text-lime-400" />,
-    title: "Innovative Tools",
-    desc: "Cutting-edge features to make your learning journey smooth and enjoyable.",
+    icon: <Star className="w-6 h-6 text-[#6366F1]" />,
+    title: "Quality Experience",
+    desc: "Engaging courses with strong student support.",
   },
 ];
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Why choose <span className="text-green-700">Tutomile</span>
-        </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-          We provide expert-designed courses, flexible learning, exceptional
-          support, innovative tools, and a quality learning experience.
-        </p>
-
-        {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <div
-              key={feature.id}
-              className="bg-[#062B26] rounded-2xl p-8 text-left flex flex-col justify-between h-60"
-            >
-              <div className="mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold text-white mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-300 text-sm">{feature.desc}</p>
+    <section className="py-24 bg-[#F8FAFC] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+          
+          {/* Left: Image */}
+          <div className="flex-1 w-full relative group">
+            <img 
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" 
+              alt="Why Choose Us" 
+              className="w-full h-[500px] lg:h-[650px] object-cover rounded-[32px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] group-hover:scale-[1.02] transition duration-500"
+            />
+            {/* Floating Element */}
+            <div className="absolute -bottom-6 -right-6 lg:-bottom-10 lg:-right-10 bg-white p-6 rounded-[24px] shadow-2xl flex items-center gap-4 max-w-[260px] hidden md:flex animate-bounce-slow">
+              <div className="w-14 h-14 rounded-full bg-[#0F172A] flex items-center justify-center flex-shrink-0 shadow-inner">
+                 <Star className="w-7 h-7 text-[#6366F1]" />
+              </div>
+              <div>
+                <p className="font-semibold text-[#0F172A] text-xl">4.9/5</p>
+                <p className="text-sm text-gray-500 font-semibold uppercase tracking-wider">Top Rated</p>
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* Right: Content */}
+          <div className="flex-1 w-full">
+            <h2 className="text-4xl md:text-5xl font-semibold text-[#0F172A] mb-6 tracking-tight leading-[1.1]">
+              Why choose <br/><span className="text-[#6366F1]">StackPath?</span>
+            </h2>
+            <p className="text-gray-600 mb-12 text-lg md:text-xl leading-relaxed max-w-lg font-medium opacity-80">
+              We provide expert-designed courses, flexible learning, exceptional
+              support, and a quality learning experience to help you achieve your goals effortlessly.
+            </p>
+
+            {/* Feature Grid */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              {features.map((feature) => (
+                <div
+                  key={feature.id}
+                  className="bg-[#0F172A] rounded-[24px] p-6 shadow-lg hover:-translate-y-2 transition duration-300 group"
+                >
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-5 group-hover:bg-[#6366F1]/20 transition">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm leading-relaxed font-medium">
+                    {feature.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

@@ -93,42 +93,42 @@ export default function ManageLectures() {
   };
 
   return (
-    <div className="bg-[#0e2d25] min-h-screen text-white pt-20 pb-10">
+    <div className="bg-[#0F172A] min-h-screen text-white pt-24 pb-10">
       <div className="max-w-7xl mx-auto p-6 grid md:grid-cols-2 gap-8">
         {/* LEFT: Form + Lecture List */}
         <div>
           <motion.h1
-            className="text-3xl font-bold mb-8 flex items-center gap-3 text-green-300"
+            className="text-4xl font-semibold mb-10 flex items-center gap-3 text-white tracking-tight"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <PlusCircle className="text-green-400" size={32} />
+            <PlusCircle className="text-[#6366F1]" size={36} />
             Manage Lectures
           </motion.h1>
 
           {/* ✅ Lecture Form */}
           <motion.form
             onSubmit={handleSubmit}
-            className="bg-green-950 bg-opacity-50 border border-green-700 rounded-2xl p-6 mb-10 shadow-xl space-y-4"
+            className="bg-slate-800/40 backdrop-blur-md border border-slate-700 rounded-3xl p-8 mb-10 shadow-2xl space-y-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-green-300 mb-1">Title</label>
+                <label className="block text-sm font-semibold text-slate-400 mb-2 uppercase tracking-wide">Title</label>
                 <input
                   type="text"
                   name="title"
                   value={form.title}
                   onChange={handleChange}
                   placeholder="Lecture Title"
-                  className="w-full p-3 rounded-lg bg-gray-900 border border-green-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-green-600 outline-none transition-all"
+                  className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-[#6366F1] outline-none transition-all"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm text-green-300 mb-1">
+                <label className="block text-sm font-semibold text-slate-400 mb-2 uppercase tracking-wide">
                   Description
                 </label>
                 <input
@@ -137,7 +137,7 @@ export default function ManageLectures() {
                   value={form.description}
                   onChange={handleChange}
                   placeholder="Lecture Description"
-                  className="w-full p-3 rounded-lg bg-gray-900 border border-green-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-green-600 outline-none transition-all"
+                  className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-[#6366F1] outline-none transition-all"
                   required
                 />
               </div>
@@ -153,7 +153,7 @@ export default function ManageLectures() {
                   name="video"
                   onChange={handleChange}
                   accept="video/*"
-                  className="w-full p-2 border border-green-700 rounded-lg bg-gray-900 text-gray-300 cursor-pointer file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700"
+                  className="w-full p-2 border border-slate-700 rounded-xl bg-slate-900 text-slate-400 cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#6366F1] file:text-white hover:file:bg-[#4F46E5]"
                 />
               </div>
               <div>
@@ -165,7 +165,7 @@ export default function ManageLectures() {
                   name="thumbnail"
                   onChange={handleChange}
                   accept="image/*"
-                  className="w-full p-2 border border-green-700 rounded-lg bg-gray-900 text-gray-300 cursor-pointer file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700"
+                  className="w-full p-2 border border-slate-700 rounded-xl bg-slate-900 text-slate-400 cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-500/20 file:text-indigo-400 hover:file:bg-indigo-500/30"
                 />
               </div>
             </div>
@@ -173,13 +173,13 @@ export default function ManageLectures() {
             <motion.button
               type="submit"
               disabled={loading}
-              className={`w-full mt-6 flex justify-center items-center gap-2 py-3 rounded-lg font-semibold transition-all duration-300 ${
+              className={`w-full mt-6 flex justify-center items-center gap-2 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg ${
                 loading
-                  ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-green-600 hover:bg-green-700 text-white shadow-md"
+                  ? "bg-slate-700 cursor-not-allowed text-slate-500"
+                  : "bg-[#6366F1] hover:bg-[#4F46E5] text-white shadow-indigo-500/20"
               }`}
-              whileHover={{ scale: loading ? 1 : 1.03 }}
-              whileTap={{ scale: loading ? 1 : 0.97 }}
+              whileHover={{ scale: loading ? 1 : 1.02 }}
+              whileTap={{ scale: loading ? 1 : 0.98 }}
             >
               <Upload size={18} />
               {editingLecture ? "Update Lecture" : "Create Lecture"}
@@ -188,12 +188,12 @@ export default function ManageLectures() {
 
           {/* ✅ Lecture List */}
           <motion.div
-            className="bg-green-950 bg-opacity-40 border border-green-700 rounded-2xl p-6 shadow-lg"
+            className="bg-slate-800/30 border border-slate-700 rounded-3xl p-8 shadow-lg"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-2xl font-semibold mb-6 text-green-300">
+            <h2 className="text-2xl font-semibold mb-8 text-[#6366F1] uppercase tracking-widest text-sm">
               All Lectures
             </h2>
 
@@ -208,7 +208,7 @@ export default function ManageLectures() {
                   {lectures.map((lecture) => (
                     <motion.li
                       key={lecture._id}
-                      className="bg-gray-900 border border-green-800 rounded-xl p-4 flex justify-between items-center hover:scale-[1.01] transition-all duration-300"
+                      className="bg-slate-900/50 border border-slate-800 rounded-2xl p-5 flex justify-between items-center hover:border-[#6366F1] transition-all duration-300"
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
@@ -222,12 +222,12 @@ export default function ManageLectures() {
                           <motion.img
                             src={lecture.thumbnailUrl}
                             alt={lecture.title}
-                            className="w-20 h-20 object-cover rounded-lg border border-green-600 shadow-md"
+                            className="w-20 h-20 object-cover rounded-xl border-2 border-slate-700 shadow-xl"
                             whileHover={{ scale: 1.05 }}
                           />
                         )}
                         <div>
-                          <h3 className="text-lg font-semibold text-green-300">
+                          <h3 className="text-lg font-semibold text-white">
                             {lecture.title}
                           </h3>
                           <p className="text-sm text-gray-400">
@@ -263,8 +263,8 @@ export default function ManageLectures() {
         </div>
 
         {/* RIGHT: 🎥 Video Player Preview */}
-        <div className="bg-green-950 bg-opacity-40 border border-green-700 rounded-2xl p-6 shadow-lg flex flex-col items-center">
-          <h2 className="text-2xl font-semibold mb-4 text-green-300">
+        <div className="bg-slate-800/40 backdrop-blur-xl border border-slate-700 rounded-3xl p-8 shadow-2xl flex flex-col items-center">
+          <h2 className="text-xl font-semibold mb-8 text-[#6366F1] uppercase tracking-widest text-sm">
             {selectedLecture ? "Now Playing" : "Video Preview"}
           </h2>
 
@@ -274,21 +274,21 @@ export default function ManageLectures() {
               src={previewVideo}
               controls
               autoPlay
-              className="rounded-xl w-full h-[380px] bg-black"
+              className="rounded-2xl w-full aspect-video bg-black shadow-2xl border border-slate-700"
             />
           ) : (
-            <div className="flex flex-col items-center justify-center h-[380px] text-gray-400">
-              <PlayCircle size={60} className="mb-2 text-green-500" />
-              <p>Select a lecture or upload a video to preview.</p>
+            <div className="flex flex-col items-center justify-center aspect-video w-full bg-slate-900 rounded-2xl border-2 border-dashed border-slate-700 text-slate-500">
+              <PlayCircle size={64} className="mb-4 text-slate-700" />
+              <p className="font-medium">Select a lecture to preview</p>
             </div>
           )}
 
           {selectedLecture && (
-            <div className="mt-4 text-center">
-              <h3 className="text-xl font-semibold text-green-300">
+            <div className="mt-8 text-center bg-slate-900/50 p-6 rounded-2xl w-full border border-slate-800">
+              <h3 className="text-xl font-semibold text-white">
                 {selectedLecture.title}
               </h3>
-              <p className="text-gray-400 mt-1">
+              <p className="text-slate-400 mt-2 text-sm leading-relaxed">
                 {selectedLecture.description}
               </p>
             </div>

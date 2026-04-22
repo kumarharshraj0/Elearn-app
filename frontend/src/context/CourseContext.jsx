@@ -12,8 +12,8 @@ export const CourseProvider = ({ children }) => {
   const { token } = useAuth();
 
   // Base URLs
-  const API_BASE_URL = "https://elearn-app-backend.onrender.com/api/courses";
-  const ADMIN_API_BASE_URL = "https://elearn-app-backend.onrender.com/api/admin/courses";
+  const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000/api') + '/courses';
+  const ADMIN_API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000/api') + '/admin/courses';
 
   // Normal user API instance
   const api = axios.create({

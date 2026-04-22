@@ -24,7 +24,7 @@ export default function Educators() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const ADMIN_API_BASE_URL = 'https://elearn-app-backend.onrender.com/api/admin/users'; // Assuming admin user management endpoint
+  const ADMIN_API_BASE_URL = 'https://elearn.hharshportfolio.com/api/admin/users'; // Assuming admin user management endpoint
 
   useEffect(() => {
     fetchEducators();
@@ -191,83 +191,90 @@ export default function Educators() {
   if (error) return <div className="text-center py-8 text-red-500">Error: {error}</div>;
 
   return (
-    <div className="container mx-auto p-6 bg-white rounded-lg shadow-md ">
-      <h1 className="text-3xl font-bold text-[#0e2d25] mb-6">Manage Educators</h1>
+    <div className="container mx-auto p-10 bg-slate-50 min-h-screen lg:pt-32">
+      <h1 className="text-4xl font-semibold text-[#0F172A] mb-10 tracking-tight">Manage Educators</h1>
 
       <button
         onClick={openAddModal}
-        className="bg-lime-500 text-white px-4 py-2 rounded-md flex items-center gap-2 mb-6 hover:bg-lime-600 transition"
+        className="bg-[#6366F1] text-white px-8 py-3 rounded-full flex items-center gap-2 mb-10 hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20 font-semibold"
       >
-        <PlusCircle size={20} />
-        Add New Educator
+        <PlusCircle size={22} />
+        Add New Educator Account
       </button>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-          <thead>
-            <tr className="bg-gray-100 border-b">
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Name
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Email
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Experience
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {educators.map((educator) => (
-              <tr key={educator._id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {educator._id}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {educator.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {educator.email}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {educator.experience}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button
-                    onClick={() => openEditModal(educator)}
-                    className="text-indigo-600 hover:text-indigo-900 mr-4"
-                  >
-                    <Edit size={20} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteEducator(educator._id)}
-                    className="text-red-600 hover:text-red-900"
-                  >
-                    <Trash2 size={20} />
-                  </button>
-                </td>
+        <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-sm bg-white">
+          <table className="min-w-full">
+            <thead>
+              <tr className="bg-slate-50 border-b border-slate-100">
+                <th className="px-8 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                  ID
+                </th>
+                <th className="px-8 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                  Personal Info
+                </th>
+                <th className="px-8 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                  Contact
+                </th>
+                <th className="px-8 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                  Experience
+                </th>
+                <th className="px-8 py-5 text-center text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                  Management
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {educators.map((educator) => (
+                <tr key={educator._id} className="hover:bg-slate-50/50 transition">
+                  <td className="px-8 py-5 whitespace-nowrap text-sm font-semibold text-slate-400">
+                    #{educator._id.slice(-6)}
+                  </td>
+                  <td className="px-8 py-5 whitespace-nowrap">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-[#6366F1] font-semibold">
+                        {educator.name[0]}
+                      </div>
+                      <div className="text-sm font-semibold text-[#0F172A]">{educator.name}</div>
+                    </div>
+                  </td>
+                  <td className="px-8 py-5 whitespace-nowrap text-sm text-slate-500">
+                    {educator.email}
+                  </td>
+                  <td className="px-8 py-5 whitespace-nowrap">
+                    <span className="bg-indigo-50 text-[#6366F1] px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest">
+                      {educator.experience}
+                    </span>
+                  </td>
+                  <td className="px-8 py-5 whitespace-nowrap text-sm font-medium text-center">
+                    <button
+                      onClick={() => openEditModal(educator)}
+                      className="text-slate-400 hover:text-[#6366F1] mr-4 transition"
+                    >
+                      <Edit size={22} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteEducator(educator._id)}
+                      className="text-slate-400 hover:text-red-500 transition"
+                    >
+                      <Trash2 size={22} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center">
-          <div className="bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full">
-            <h2 className="text-2xl font-bold mb-4 text-[#0e2d25]">
-              {currentEducator ? "Edit Educator" : "Add New Educator"}
+        <div className="fixed inset-0 bg-[#0F172A]/80 backdrop-blur-sm overflow-y-auto h-full w-full flex justify-center items-center z-50">
+          <div className="bg-white p-12 rounded-3xl shadow-2xl max-w-2xl w-full border border-slate-100">
+            <h2 className="text-3xl font-semibold mb-8 text-[#0F172A] tracking-tight">
+              {currentEducator ? "Edit Profile" : "Register New Educator"}
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-gray-700 text-sm font-semibold mb-2">
                     Name
                   </label>
                   <input
@@ -280,7 +287,7 @@ export default function Educators() {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-gray-700 text-sm font-semibold mb-2">
                     Email
                   </label>
                   <input
@@ -294,22 +301,22 @@ export default function Educators() {
                 </div>
               </div>
               {!currentEducator && ( // Only show password field for new educator
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Password
+                <div className="mb-6">
+                  <label className="block text-slate-500 text-xs font-semibold uppercase tracking-widest mb-2">
+                    Security Password
                   </label>
                   <input
                     type="password"
                     name="password"
                     value={form.password}
                     onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
                     required
                   />
                 </div>
               )}
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-semibold mb-2">
                   Bio
                 </label>
                 <textarea
@@ -321,7 +328,7 @@ export default function Educators() {
                 ></textarea>
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-semibold mb-2">
                   Experience
                 </label>
                 <input
@@ -332,22 +339,22 @@ export default function Educators() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Image URL
+              <div className="mb-6">
+                <label className="block text-slate-500 text-xs font-semibold uppercase tracking-widest mb-2">
+                  Image Source URL
                 </label>
                 <input
                   type="text"
                   name="image"
                   value={form.image}
                   onChange={handleChange}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
                 />
               </div>
-              <h3 className="text-xl font-bold text-[#0e2d25] mb-4">Socials</h3>
+              <h3 className="text-xl font-semibold text-[#0F172A] mb-6 uppercase tracking-widest text-sm">Professional Links</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-gray-700 text-sm font-semibold mb-2">
                     LinkedIn
                   </label>
                   <input
@@ -359,7 +366,7 @@ export default function Educators() {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-gray-700 text-sm font-semibold mb-2">
                     Twitter
                   </label>
                   <input
@@ -371,7 +378,7 @@ export default function Educators() {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                  <label className="block text-gray-700 text-sm font-semibold mb-2">
                     Website
                   </label>
                   <input
@@ -383,17 +390,17 @@ export default function Educators() {
                   />
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4 mt-8">
                 <button
                   type="submit"
-                  className="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="flex-1 bg-[#6366F1] hover:bg-[#4F46E5] text-white font-semibold py-4 px-8 rounded-full transition shadow-lg shadow-indigo-500/20"
                 >
-                  {currentEducator ? "Update Educator" : "Add Educator"}
+                  {currentEducator ? "Save Profile Changes" : "Create Educator Account"}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="px-8 py-4 text-slate-500 font-semibold hover:text-slate-700 transition"
                 >
                   Cancel
                 </button>

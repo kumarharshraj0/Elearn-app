@@ -4,7 +4,7 @@ import { useCourses } from "../context/CourseContext";
 import { useLectures } from "../context/LectureContext";
 import { useAuth } from "../context/AuthContext";
 import { FaCheckCircle } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 /* =======================
    Skeleton Components
@@ -165,7 +165,7 @@ const EnrolledCourseDetail = () => {
   ======================= */
   if (authLoading || courseLoading || lectureLoading) {
     return (
-      <div className="bg-[#0e2d25] min-h-screen pt-24 px-6">
+      <div className="bg-[#0F172A] min-h-screen pt-24 px-6">
         <div className="container mx-auto grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <Skeleton className="h-10 w-2/3" />
@@ -203,28 +203,28 @@ const EnrolledCourseDetail = () => {
      MAIN UI (UNCHANGED)
   ======================= */
   return (
-    <div className="bg-[#0e2d25] text-white min-h-screen pt-20">
+    <div className="bg-[#0F172A] text-white min-h-screen pt-24">
       <div className="container mx-auto p-6 flex flex-col lg:flex-row gap-8">
         {/* Left */}
         <div className="flex-1">
-          <div className="flex justify-between mb-4">
-            <h1 className="text-3xl font-bold">{course.title}</h1>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-4xl font-semibold tracking-tight">{course.title}</h1>
             <button
               onClick={handleRestartCourse}
-              className="bg-red-600 px-4 py-2 rounded"
+              className="bg-red-500/20 text-red-500 border border-red-500/50 px-6 py-2 rounded-full font-semibold hover:bg-red-500 hover:text-white transition"
             >
-              Restart
+              Restart Course
             </button>
           </div>
 
-          <div className="mb-4">
-            <div className="w-full bg-gray-700 h-2 rounded">
+          <div className="mb-8">
+            <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
               <div
-                className="bg-green-600 h-2 rounded"
+                className="bg-[#6366F1] h-full transition-all duration-700 shadow-[0_0_10px_rgba(99,102,241,0.5)]"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="text-sm mt-1">{Math.round(progress)}% Completed</p>
+            <p className="text-sm font-semibold text-slate-400 mt-2 uppercase tracking-widest">{Math.round(progress)}% Completed</p>
           </div>
 
           <div className="aspect-video rounded overflow-hidden">
@@ -239,15 +239,18 @@ const EnrolledCourseDetail = () => {
             )}
           </div>
 
-          <div className="mt-6 bg-green-950 p-5 rounded">
-            <h2 className="text-xl font-semibold mb-2">About this course</h2>
-            <p>{course.fullDesc}</p>
+          <div className="mt-8 bg-slate-800/50 border border-slate-700 p-8 rounded-3xl backdrop-blur-sm">
+            <h2 className="text-xl font-semibold mb-4 text-[#6366F1]">About this course</h2>
+            <p className="text-slate-300 leading-relaxed">{course.fullDesc}</p>
           </div>
         </div>
 
         {/* Right */}
-        <div className="lg:w-1/3 bg-green-950 p-4 rounded max-h-[80vh] overflow-y-auto">
-          <h2 className="text-xl font-bold mb-4">Lectures</h2>
+        <aside className="lg:w-1/3 bg-[#020617] p-6 rounded-3xl border border-slate-800 max-h-[85vh] overflow-y-auto">
+          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+            <span className="w-2 h-2 bg-[#6366F1] rounded-full animate-pulse"></span>
+            Lectures
+          </h2>
 
           {lectures.map((lec) => (
             <div
@@ -256,68 +259,74 @@ const EnrolledCourseDetail = () => {
                 setCurrentVideoUrl(lec.videoUrl);
                 markLectureAsWatched(courseId, lec._id);
               }}
-              className={`p-3 mb-3 rounded cursor-pointer ${
+              className={`p-4 mb-4 rounded-2xl cursor-pointer transition-all border ${
                 currentVideoUrl === lec.videoUrl
-                  ? "bg-green-700"
-                  : "bg-white text-black"
+                  ? "bg-slate-800 border-[#6366F1] shadow-lg"
+                  : "bg-slate-900/50 border-slate-800 hover:border-slate-700"
               }`}
             >
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 <FaCheckCircle
                   className={
-                    lec.isWatched ? "text-green-500" : "text-gray-400"
+                    lec.isWatched ? "text-[#6366F1]" : "text-slate-700"
                   }
                 />
                 <div>
-                  <h3 className="font-semibold">{lec.title}</h3>
-                  <p className="text-sm">{lec.description}</p>
+                  <h3 className={`font-semibold transition ${currentVideoUrl === lec.videoUrl ? 'text-[#6366F1]' : 'text-slate-300'}`}>
+                    {lec.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1">{lec.description}</p>
                 </div>
               </div>
             </div>
           ))}
-        </div>
+        </aside>
       </div>
 
       {/* Reviews */}
-      <section className="bg-white text-black px-10 py-16">
-        <h2 className="text-2xl font-bold mb-6">
-          Reviews ({course.numReviews})
+      <section className="bg-white text-black px-10 py-20 rounded-t-3xl mt-12">
+        <h2 className="text-3xl font-semibold mb-10 text-[#0F172A]">
+          Student Reviews ({course.numReviews})
         </h2>
 
         {user && isEnrolled && !hasReviewed && (
-          <form onSubmit={submitReviewHandler} className="mb-10 space-y-4">
-            <select
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              className="border p-2 w-full"
-            >
-              <option value="">Rating</option>
-              {[5, 4, 3, 2, 1].map((r) => (
-                <option key={r} value={r}>
-                  {r} Stars
-                </option>
-              ))}
-            </select>
+          <form onSubmit={submitReviewHandler} className="mb-12 space-y-6 bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm">
+            <div className="grid md:grid-cols-2 gap-6">
+              <select
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+                className="bg-white border border-slate-200 p-4 rounded-xl outline-none focus:ring-2 focus:ring-[#6366F1] transition"
+              >
+                <option value="">Rating</option>
+                {[5, 4, 3, 2, 1].map((r) => (
+                  <option key={r} value={r}>
+                    {r} Stars
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <textarea
               rows="4"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="border p-2 w-full"
+              className="bg-white border border-slate-200 p-4 w-full rounded-xl outline-none focus:ring-2 focus:ring-[#6366F1] transition"
               placeholder="Write your review..."
             />
 
-            <button className="bg-blue-600 text-white px-4 py-2 rounded">
+            <button className="bg-[#6366F1] text-white px-10 py-3 rounded-full font-semibold hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20">
               Submit Review
             </button>
           </form>
         )}
 
         {course.reviews.map((r) => (
-          <div key={r._id} className="border-b pb-4 mb-4">
-            <p className="font-semibold">{r.user.name}</p>
-            <p>{"★".repeat(r.rating)}</p>
-            <p>{r.comment}</p>
+          <div key={r._id} className="border-b border-slate-100 pb-8 mb-8 last:border-b-0">
+            <div className="flex items-center gap-4 mb-3">
+              <p className="font-semibold text-[#0F172A]">{r.user.name}</p>
+              <div className="text-yellow-400 text-sm">{"★".repeat(r.rating)}</div>
+            </div>
+            <p className="text-slate-600 leading-relaxed">{r.comment}</p>
           </div>
         ))}
       </section>

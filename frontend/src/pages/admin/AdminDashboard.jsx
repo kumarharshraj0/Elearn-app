@@ -25,29 +25,29 @@ export default function AdminDashboard() {
   }, []);
 
   const stats = [
-    { label: "Total Users", value: dashboardStats.totalUsers, icon: <Users />, color: "bg-lime-400" },
-    { label: "Students", value: dashboardStats.totalStudents, icon: <BookOpen />, color: "bg-green-300" },
-    { label: "Teachers", value: dashboardStats.totalTeachers, icon: <Shield />, color: "bg-green-200" },
-    { label: "Admins", value: dashboardStats.totalAdmins, icon: <Shield />, color: "bg-green-200" },
-    { label: "Courses", value: dashboardStats.totalCourses, icon: <BookOpen />, color: "bg-lime-300" },
-    { label: "Earnings (Month)", value: `₹${dashboardStats.totalEarnings.toLocaleString()}`, icon: <DollarSign />, color: "bg-green-400" },
+    { label: "Total Users", value: dashboardStats.totalUsers, icon: <Users />, color: "bg-indigo-600" },
+    { label: "Students", value: dashboardStats.totalStudents, icon: <BookOpen />, color: "bg-slate-800" },
+    { label: "Teachers", value: dashboardStats.totalTeachers, icon: <Shield />, color: "bg-indigo-500" },
+    { label: "Admins", value: dashboardStats.totalAdmins, icon: <Shield />, color: "bg-slate-900" },
+    { label: "Courses", value: dashboardStats.totalCourses, icon: <BookOpen />, color: "bg-indigo-400" },
+    { label: "Earnings (Month)", value: `$${dashboardStats.totalEarnings.toLocaleString()}`, icon: <DollarSign />, color: "bg-indigo-700" },
   ];
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen md:py-30 lg:py-30">
-      <h1 className="text-3xl font-bold text-[#0e2d25] mb-8">Dashboard Overview</h1>
+    <div className="p-10 bg-slate-50 min-h-screen lg:pt-32">
+      <h1 className="text-4xl font-semibold text-[#0F172A] mb-12 tracking-tight">Dashboard Overview</h1>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {stats.map((item, i) => (
           <div
             key={i}
-            className="bg-white rounded-2xl shadow-md p-6 flex items-center gap-4 border border-gray-100 hover:shadow-lg transition"
+            className="bg-white rounded-3xl p-8 flex items-center gap-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300"
           >
-            <div className={`p-3 rounded-xl ${item.color} text-black`}>
+            <div className={`p-4 rounded-2xl ${item.color} text-white shadow-lg`}>
               {item.icon}
             </div>
             <div>
-              <p className="text-gray-600 text-sm">{item.label}</p>
-              <h2 className="text-2xl font-semibold text-[#0e2d25]">{item.value}</h2>
+              <p className="text-slate-500 font-semibold uppercase tracking-widest text-xs mb-1">{item.label}</p>
+              <h2 className="text-3xl font-semibold text-[#0F172A]">{item.value}</h2>
             </div>
           </div>
         ))}

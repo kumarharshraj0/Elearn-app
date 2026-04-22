@@ -1,12 +1,15 @@
+// src/pages/Blog.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CTA from "../components/CTA";
-import axios from "axios";
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("All Posts");
-  const [articles, setArticles] = useState([]); // ✅ Empty initially
+  const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const categories = [
@@ -15,13 +18,14 @@ export default function BlogPage() {
     "Technology & Innovation",
     "Tips & Strategies",
     "Development",
+    "Marketing"
   ];
 
-  // ✅ Fetch from backend
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await axios.get("https://elearn-app-backend.onrender.com/api/blogs");
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api";
+        const res = await axios.get(`${baseUrl}/blogs`);
         setArticles(res.data);
       } catch (err) {
         console.error("Error fetching blogs:", err);
@@ -32,140 +36,174 @@ export default function BlogPage() {
     fetchArticles();
   }, []);
 
-  // ✅ Filter by category
   const filteredArticles =
     activeCategory === "All Posts"
       ? articles
       : articles.filter((a) => a.category === activeCategory);
 
+  const featuredArticle = articles.length > 0 ? articles[0] : null;
+  const remainingArticles = articles.length > 1 ? filteredArticles.filter(a => a._id !== featuredArticle._id) : filteredArticles;
+
   if (loading) {
     return (
-      <div className="h-screen flex justify-center items-center text-2xl text-[#0e2d25]">
-        Loading blogs...
+      <div className="h-screen bg-[#0F172A] flex flex-col justify-center items-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full mb-4"
+        />
+        <span className=" mx-auto mt-6 max-w-3xl text-center text-lg md:text-xl opacity-80 ">Loading Knowledge...</span>
       </div>
     );
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen">
+      <Navbar />
+
       {/* Hero Section */}
-      <section className="bg-[#0e2d25] text-white h-[70vh] flex flex-col justify-center items-center text-center px-6 py-[48vh]">
-        <h1 className="text-5xl font-bold mb-6">Explore. Learn. Grow.</h1>
-        <p className="text-lg max-w-2xl text-gray-200 leading-relaxed">
-          Your ultimate source for knowledge, tips, and trends, fueling growth,
-          success, and lifelong learning in education and technology.
-        </p>
-        <div className="mt-8 flex space-x-4">
-          <a
-            href="#blog"
-            className="px-6 py-3 bg-lime-400 text-black font-semibold rounded-full shadow-lg hover:bg-lime-500 transition"
+      <section className="bg-[#0F172A] relative pt-40 pb-32 px-6 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-600/20 rounded-full blur-[100px]"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-[#6366F1] font-semibold uppercase tracking-[0.4em] text-xs mb-6 text-center"
           >
-            Read Blog
-          </a>
-          <Link
-            to={"/courses"}
-            className="px-6 py-3 border border-gray-300 rounded-full font-semibold hover:bg-white hover:text-black transition"
+            StackPath Insights
+          </motion.p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-6xl font-semibold text-white text-center leading-[1.1] tracking-tight mb-12"
           >
-            Explore Courses
-          </Link>
+            Explore <br/> <span className="text-[#6366F1]">Knowledge.</span>
+          </motion.h1>
+
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((cat, i) => (
+              <motion.button
+                key={cat}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.05 + 0.3 }}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-8 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 ${activeCategory === cat
+                  ? "bg-[#6366F1] text-white shadow-[0_15px_30px_-5px_rgba(99,102,241,0.4)]"
+                  : "bg-white/5 text-slate-400 border border-white/10 hover:bg-white/10 hover:text-white"
+                  }`}
+              >
+                {cat}
+              </motion.button>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Featured Articles */}
-      <section className="py-20 px-6 md:px-12 lg:px-20">
-        <h2 className="text-5xl font-bold text-center text-[#0e2d25] mb-18 ">
-          Featured Articles
-        </h2>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 ">
-          {articles.map((article) => (
-            <div
-              key={article.id}
-              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition flex flex-col"
+      {/* Featured Article Section */}
+      {featuredArticle && activeCategory === "All Posts" && (
+        <section className="py-24 px-6">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="group relative grid lg:grid-cols-2 gap-12 items-center bg-slate-50 rounded-[48px] overflow-hidden p-8 md:p-12 hover:shadow-2xl transition-all duration-700 border border-slate-100"
             >
-              <img
-                src={article.img}
-                alt={article.title}
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-5 flex flex-col flex-grow">
-                <p className="text-gray-500 text-sm flex items-center mb-2">
-                  <span className="mr-2">📅</span> {article.date}
-                </p>
-                <h3 className="font-semibold text-lg text-[#0e2d25] leading-snug mb-2">
-                  {article.title}
-                </h3>
-                <p className="text-gray-600 text-sm flex-grow mb-4">
-                  {article.excerpt}
+              <div className="relative h-[400px] md:h-[500px] rounded-[32px] overflow-hidden shadow-2xl">
+                <img
+                  src={featuredArticle.img}
+                  alt={featuredArticle.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-6 py-2 rounded-2xl text-[#6366F1] text-xs font-semibold uppercase tracking-widest shadow-lg">
+                  Featured Article
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="text-xs font-semibold bg-indigo-100 text-[#6366F1] px-4 py-1.5 rounded-full uppercase tracking-widest">
+                    {featuredArticle.category}
+                  </span>
+                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                    {featuredArticle.date} • {featuredArticle.readTime}
+                  </span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-semibold text-[#0F172A] mb-6 leading-tight group-hover:text-[#6366F1] transition-colors">
+                  {featuredArticle.title}
+                </h2>
+                <p className="text-lg text-slate-500 font-medium mb-8 leading-relaxed">
+                  {featuredArticle.excerpt}
                 </p>
                 <Link
-                  to={`/blog/${article.id}`}
-                  className="text-green-600 font-medium hover:underline"
+                  to={`/blog/${featuredArticle._id}`}
+                  className="inline-flex items-center gap-3 text-[#0F172A] font-semibold uppercase tracking-[0.2em] text-sm group-hover:gap-5 transition-all"
                 >
-                  Read More →
+                  Start Reading <span className="text-[#6366F1] text-2xl">→</span>
                 </Link>
               </div>
-            </div>
-          ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Articles Grid */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {remainingArticles.map((article, i) => (
+                <motion.div
+                  key={article._id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group flex flex-col bg-white border border-slate-100 rounded-[40px] overflow-hidden hover:shadow-2xl transition-all duration-500 h-full"
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={article.img}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-2xl text-[#6366F1] text-[10px] font-semibold uppercase tracking-widest">
+                      {article.category}
+                    </div>
+                  </div>
+
+                  <div className="p-8 flex flex-col flex-1">
+                    <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-3">
+                      {article.date} • {article.readTime}
+                    </div>
+                    <h3 className="text-xl font-semibold text-[#0F172A] mb-4 group-hover:text-[#6366F1] transition-colors line-clamp-2 leading-tight">
+                      {article.title}
+                    </h3>
+                    <p className="text-slate-500 text-sm font-medium mb-8 line-clamp-3 leading-relaxed">
+                      {article.excerpt}
+                    </p>
+                    <Link
+                      to={`/blog/${article._id}`}
+                      className="mt-auto text-[#0F172A] font-semibold flex items-center gap-2 group/btn"
+                    >
+                      <span className="text-xs uppercase tracking-widest">Read More</span>
+                      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover/btn:bg-[#6366F1] group-hover/btn:text-white transition-all">
+                        →
+                      </div>
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
       </section>
 
-      {/* Thoughts, Tips, Tools Section */}
-      <section className="py-16 px-6 md:px-12 lg:px-20 bg-gray-50">
-        <h2 className="text-3xl font-bold text-center text-[#0e2d25] mb-8">
-          Thoughts, Tips, and Tools for Success
-        </h2>
-
-        {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full font-medium transition ${
-                activeCategory === cat
-                  ? "bg-[#0e2d25] text-white"
-                  : "bg-white border text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Filtered Articles */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredArticles.map((article) => (
-            <div
-              key={article.id}
-              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition flex flex-col"
-            >
-              <img
-                src={article.img}
-                alt={article.title}
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-5 flex flex-col flex-grow">
-                <p className="text-gray-500 text-sm flex items-center mb-2">
-                  <span className="mr-2">📅</span> {article.date}
-                </p>
-                <h3 className="font-semibold text-lg text-[#0e2d25] leading-snug mb-2">
-                  {article.title}
-                </h3>
-                <p className="text-gray-600 text-sm flex-grow mb-4">
-                  {article.excerpt}
-                </p>
-                <Link
-                  to={`/blog/${article.id}`}
-                  className="text-green-600 font-medium hover:underline"
-                >
-                  Read More →
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
       <CTA />
       <Footer />
     </div>

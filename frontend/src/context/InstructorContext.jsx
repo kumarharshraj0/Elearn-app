@@ -10,7 +10,7 @@ export const InstructorProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const { token } = useAuth(); // ✅ Get token from AuthContext
-  const API_BASE = "https://elearn-app-backend.onrender.com/api/instructors";
+  const API_BASE = "https://elearn.hharshportfolio.com/api/instructors";
 
   // ✅ Fetch all instructors
   const fetchInstructors = async () => {

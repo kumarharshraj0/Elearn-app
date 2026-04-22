@@ -62,8 +62,8 @@ export default function InstructorDetail() {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8 relative">
+    <div className="min-h-screen bg-slate-50 py-12 px-6 lg:pt-32">
+      <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-sm border border-slate-100 p-10 relative">
         {/* Image Section */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -79,12 +79,12 @@ export default function InstructorDetail() {
                   : instructor.profileImage || "https://via.placeholder.com/300x300?text=No+Image"
               }
               alt={instructor.name}
-              className="rounded-xl w-64 h-64 object-cover shadow-md"
+              className="rounded-2xl w-64 h-64 object-cover shadow-2xl border-4 border-slate-50"
             />
 
             {isEditing && (
-              <label className="mt-4 flex items-center gap-2 bg-lime-100 px-3 py-2 rounded-md cursor-pointer border border-lime-400 hover:bg-lime-200 transition">
-                <Upload size={18} /> Change Image
+              <label className="mt-6 flex items-center gap-2 bg-indigo-50 px-6 py-3 rounded-xl cursor-pointer border border-indigo-200 hover:bg-indigo-100 transition text-[#6366F1] font-semibold">
+                <Upload size={18} /> Change Photo
                 <input
                   type="file"
                   accept="image/*"
@@ -104,7 +104,7 @@ export default function InstructorDetail() {
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  className="border p-2 rounded-md w-full"
+                  className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
                   placeholder="Instructor Name"
                   required
                 />
@@ -113,7 +113,7 @@ export default function InstructorDetail() {
                   value={form.bio}
                   onChange={handleChange}
                   rows="4"
-                  className="border p-2 rounded-md w-full"
+                  className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
                   placeholder="Instructor Bio"
                   required
                 />
@@ -122,26 +122,26 @@ export default function InstructorDetail() {
                   name="experience"
                   value={form.experience}
                   onChange={handleChange}
-                  className="border p-2 rounded-md w-full"
+                  className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
                   placeholder="Experience (e.g. 5 years)"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-lime-500 hover:bg-lime-600 text-white px-6 py-2 rounded-md flex items-center gap-2"
+                  className="bg-[#6366F1] hover:bg-[#4F46E5] text-white px-8 py-3 rounded-full flex items-center gap-2 font-semibold shadow-lg shadow-indigo-500/20"
                 >
-                  <Save size={18} /> Save
+                  <Save size={18} /> Save Settings
                 </button>
               </form>
             ) : (
               <>
-                <h1 className="text-3xl font-bold text-[#0e2d25]">
+                <h1 className="text-4xl font-semibold text-[#0F172A] tracking-tight">
                   {instructor.name}
                 </h1>
-                <p className="text-gray-700">{instructor.bio}</p>
-                <p className="text-lime-700 font-medium">
-                  Experience: {instructor.experience}
-                </p>
+                <p className="text-slate-600 leading-relaxed text-lg">{instructor.bio}</p>
+                <div className="inline-block bg-indigo-50 text-[#6366F1] px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-widest">
+                  {instructor.experience} Exp
+                </div>
               </>
             )}
 
@@ -149,9 +149,9 @@ export default function InstructorDetail() {
             {user?.role === "admin" && !isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="mt-4 flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-md"
+                className="mt-6 flex items-center gap-2 bg-[#0F172A] hover:bg-[#6366F1] text-white px-8 py-3 rounded-full font-semibold transition shadow-lg shadow-indigo-500/10"
               >
-                <Edit size={18} /> Edit
+                <Edit size={18} /> Edit Profile
               </button>
             )}
           </div>
@@ -165,19 +165,20 @@ export default function InstructorDetail() {
             transition={{ delay: 0.2 }}
             className="mt-10"
           >
-            <h2 className="text-2xl font-bold mb-4 text-[#0e2d25]">
+            <h2 className="text-2xl font-semibold mb-8 text-[#0F172A] flex items-center gap-3">
+              <span className="w-2 h-8 bg-[#6366F1] rounded-full"></span>
               Courses by {instructor.name}
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {courses.map((course) => (
                 <div
                   key={course._id}
-                  className="bg-white shadow-md rounded-xl p-5 border hover:shadow-lg transition"
+                  className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-[#6366F1] transition group cursor-pointer"
                 >
-                  <h3 className="text-xl font-semibold text-[#0e2d25] mb-2">
+                  <h3 className="text-xl font-semibold text-[#0F172A] mb-2 group-hover:text-[#6366F1] transition">
                     {course.title}
                   </h3>
-                  <p className="text-gray-600 text-sm line-clamp-3">
+                  <p className="text-slate-500 text-sm line-clamp-2 italic">
                     {course.description}
                   </p>
                 </div>

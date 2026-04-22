@@ -1,96 +1,96 @@
+// src/components/Footer.jsx
 import React from "react";
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0D322C] text-white py-12 px-6 md:px-16">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-        {/* Brand + Mission */}
-        <div>
-          <h2 className="text-2xl font-bold flex items-center gap-2 text-lime-400">
-            <span className="text-3xl">🎓</span> Tutomile
-          </h2>
-          <p className="mt-4 text-gray-300 leading-relaxed">
-            Our mission is to provide accessible, affordable, and impactful
-            learning, empowering learners to achieve goals with expert support.
+    <footer className="bg-[#020617] text-white pt-24 pb-12 px-6 md:px-16 border-t border-slate-800/50">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-8">
+        
+        {/* Brand Column */}
+        <div className="lg:col-span-4 space-y-8">
+          <BrandLogo light={true} />
+          <p className="text-slate-400 text-lg leading-relaxed max-w-sm font-medium">
+            Empowering the next generation of creators and professionals through 
+            industry-led education and practical skill-building.
           </p>
-
-          {/* Social Icons */}
-          <h3 className="mt-6 font-semibold">Follow us:</h3>
-          <div className="flex items-center gap-4 mt-3">
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#114239] hover:bg-lime-400 hover:text-black transition"
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#114239] hover:bg-lime-400 hover:text-black transition"
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#114239] hover:bg-lime-400 hover:text-black transition"
-            >
-              <FaTwitter />
-            </a>
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#114239] hover:bg-lime-400 hover:text-black transition"
-            >
-              <FaLinkedinIn />
-            </a>
+          
+          <div className="flex items-center gap-4">
+            {[FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                className="w-10 h-10 rounded-xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-[#6366F1] hover:text-white transition-all duration-300 hover:-translate-y-1 border border-slate-700/50"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Quick Links */}
-        <div>
-          <h3 className="font-semibold text-lg mb-4">Quick links</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li><a href="#" className="hover:text-lime-400">Home</a></li>
-            <li><a href="#" className="hover:text-lime-400">About Us</a></li>
-            <li><a href="#" className="hover:text-lime-400">Courses</a></li>
-            <li><a href="#" className="hover:text-lime-400">Blog</a></li>
-            <li><a href="#" className="hover:text-lime-400">Contact Us</a></li>
+        {/* Links Columns */}
+        <div className="lg:col-span-2">
+          <h3 className="text-white font-semibold text-xs uppercase tracking-widest mb-8">Platform</h3>
+          <ul className="space-y-4">
+            {["Home", "Courses", "Instructors", "Resources", "Membership"].map((item) => (
+              <li key={item}>
+                <Link to="/" className="text-slate-400 hover:text-white transition-colors duration-300 font-medium">{item}</Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Resources */}
-        <div>
-          <h3 className="font-semibold text-lg mb-4">Resources</h3>
-          <ul className="space-y-2 text-gray-300">
-            <li><a href="#" className="hover:text-lime-400">FAQ</a></li>
-            <li><a href="#" className="hover:text-lime-400">404</a></li>
-            <li><a href="#" className="hover:text-lime-400">Style Guide</a></li>
-            <li><a href="#" className="hover:text-lime-400">License</a></li>
-            <li><a href="#" className="hover:text-lime-400">Change Log</a></li>
+        <div className="lg:col-span-2">
+          <h3 className="text-white font-semibold text-xs uppercase tracking-widest mb-8">Resources</h3>
+          <ul className="space-y-4">
+            {["Documentation", "Help Center", "Blog", "Community", "FAQs"].map((item) => (
+              <li key={item}>
+                <Link to="/" className="text-slate-400 hover:text-white transition-colors duration-300 font-medium">{item}</Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Subscribe */}
-        <div>
-          <h3 className="font-semibold text-lg mb-4">Subscribe</h3>
-          <p className="text-gray-300 mb-4">
-            Stay updated on the latest courses, trends, and exclusive offers.
+        <div className="lg:col-span-2">
+          <h3 className="text-white font-semibold text-xs uppercase tracking-widest mb-8">Company</h3>
+          <ul className="space-y-4">
+            {["About Us", "Careers", "Legal", "Privacy", "Security"].map((item) => (
+              <li key={item}>
+                <Link to="/" className="text-slate-400 hover:text-white transition-colors duration-300 font-medium">{item}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Newsletter Column */}
+        <div className="lg:col-span-2">
+          <h3 className="text-white font-semibold text-xs uppercase tracking-widest mb-8">Stay Updated</h3>
+          <p className="text-slate-400 text-sm mb-6 font-medium">
+            Get the latest updates delivered to your inbox.
           </p>
-          <div className="flex items-center bg-[#114239] rounded-full overflow-hidden">
+          <div className="relative group">
             <input
               type="email"
-              placeholder="Enter your email"
-              className="px-4 py-3 w-full bg-transparent outline-none text-white placeholder-gray-400"
+              placeholder="Email"
+              className="w-full bg-slate-900 border border-slate-700 rounded-2xl py-3.5 px-5 text-sm focus:outline-none focus:border-[#6366F1] transition-all"
             />
-            <button className="px-6 py-3 bg-lime-400 text-black font-semibold hover:bg-lime-500 transition">
-              →
+            <button className="absolute right-2 top-1.5 bottom-1.5 px-4 bg-[#6366F1] text-white rounded-xl text-xs font-semibold uppercase hover:bg-[#4F46E5] transition-colors">
+              Go
             </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom Line */}
-      <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400 text-sm">
-        © {new Date().getFullYear()} Tutomile. All rights reserved.
+      <div className="max-w-7xl mx-auto mt-24 pt-12 border-t border-slate-800/50 flex flex-col md:flex-row items-center justify-between gap-6">
+        <p className="text-slate-500 text-sm font-medium">
+          © {new Date().getFullYear()} StackPath. Built for the future of learning.
+        </p>
+        <div className="flex gap-8">
+          <Link to="/" className="text-xs font-semibold text-slate-500 uppercase tracking-widest hover:text-white transition-colors">Privacy Policy</Link>
+          <Link to="/" className="text-xs font-semibold text-slate-500 uppercase tracking-widest hover:text-white transition-colors">Terms of Service</Link>
+        </div>
       </div>
     </footer>
   );

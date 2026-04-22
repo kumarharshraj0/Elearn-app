@@ -16,6 +16,7 @@ const lectureRouter = require("./routes/lecturerouter");
 const paymentRouter = require("./routes/paymentrouter");
 const adminRouter = require("./routes/adminrouter");
 const instructorRoutes = require("./routes/instructorrouter");
+const blogRoutes = require("./routes/blogroutes");
 
 // Controllers
 const {
@@ -57,6 +58,7 @@ app.use("/api/lectures", lectureRouter);
 app.use("/api/payment", paymentRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/instructors", instructorRoutes);
+app.use("/api/blogs", blogRoutes);
 
 /* ------------------- COURSE APIs ------------------- */
 app.get("/api/courses", getCourses);

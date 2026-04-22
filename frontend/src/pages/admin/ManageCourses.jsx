@@ -146,14 +146,14 @@ export default function ManageCourses() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen md-py-30 lg:py-30">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">Manage Courses</h2>
+    <div className="p-10 bg-slate-50 min-h-screen lg:pt-32">
+      <div className="flex justify-between items-center mb-10">
+        <h2 className="text-4xl font-semibold text-[#0F172A] tracking-tight">Manage Courses</h2>
         <button
           onClick={() => openModal()}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
+          className="flex items-center gap-2 bg-[#6366F1] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20"
         >
-          <PlusCircle size={18} /> Add New Course
+          <PlusCircle size={20} /> Add New Course
         </button>
       </div>
 
@@ -168,15 +168,15 @@ export default function ManageCourses() {
               <div
                 key={course._id}
                 onClick={() => openManageLectures(course._id)}
-                className="bg-white shadow rounded-xl p-4 flex flex-col justify-between cursor-pointer hover:shadow-lg transition-shadow"
+                className="bg-white rounded-3xl p-6 flex flex-col justify-between cursor-pointer hover:shadow-xl transition-all border border-slate-100 group"
               >
                 <div>
                   <img
                     src={course.image || "/placeholder.jpg"}
                     alt={course.title}
-                    className="w-full h-40 object-cover rounded-lg mb-3"
+                    className="w-full h-44 object-cover rounded-2xl mb-4 group-hover:opacity-90 transition"
                   />
-                  <h3 className="text-lg font-semibold">{course.title}</h3>
+                  <h3 className="text-xl font-semibold text-[#0F172A] group-hover:text-[#6366F1] transition">{course.title}</h3>
                   <p className="text-sm text-gray-500">{course.category}</p>
                   <p className="text-gray-700 text-sm mt-2">
                     {course.shortDesc?.slice(0, 80)}...
@@ -184,8 +184,8 @@ export default function ManageCourses() {
                   <p className="text-gray-600 text-sm mt-1">
                     Duration: {course.duration || "N/A"}
                   </p>
-                  <p className="text-gray-800 font-semibold mt-1">
-                    ₹{course.price || 0}
+                  <p className="text-[#6366F1] font-semibold text-xl mt-4">
+                    ${course.price || 0}
                   </p>
                 </div>
 
@@ -195,15 +195,15 @@ export default function ManageCourses() {
                 >
                   <button
                     onClick={() => openModal(course)}
-                    className="flex items-center gap-1 text-yellow-600 hover:text-yellow-700"
+                    className="flex items-center gap-2 text-slate-500 hover:text-[#6366F1] font-semibold transition"
                   >
-                    <Edit size={16} /> Edit
+                    <Edit size={18} /> Edit
                   </button>
                   <button
                     onClick={() => handleDelete(course._id)}
-                    className="flex items-center gap-1 text-red-600 hover:text-red-700"
+                    className="flex items-center gap-2 text-red-400 hover:text-red-600 font-semibold transition"
                   >
-                    <Trash2 size={16} /> Delete
+                    <Trash2 size={18} /> Delete
                   </button>
                 </div>
               </div>
@@ -217,24 +217,26 @@ export default function ManageCourses() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg overflow-y-auto max-h-[90vh]">
-            <h3 className="text-xl font-semibold mb-4">
-              {currentCourse ? "Edit Course" : "Add Course"}
+          <div className="bg-white w-full max-w-xl p-10 rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh] border border-slate-100">
+            <h3 className="text-2xl font-semibold mb-8 text-[#0F172A] tracking-tight">
+              {currentCourse ? "Edit Course Settings" : "Create New Course"}
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-3">
-              <input name="title" value={form.title} onChange={handleChange} placeholder="Course Title" className="w-full p-2 border rounded" required />
-              <input name="slug" value={form.slug} onChange={handleChange} placeholder="Slug (unique)" className="w-full p-2 border rounded" required />
-              <input name="category" value={form.category} onChange={handleChange} placeholder="Category" className="w-full p-2 border rounded" />
-              <input name="duration" value={form.duration} onChange={handleChange} placeholder="Duration (e.g. 10 hours)" className="w-full p-2 border rounded" />
-              <input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price (₹)" className="w-full p-2 border rounded" required />
-              <textarea name="shortDesc" value={form.shortDesc} onChange={handleChange} placeholder="Short Description" className="w-full p-2 border rounded" />
-              <textarea name="fullDesc" value={form.fullDesc} onChange={handleChange} placeholder="Full Description" className="w-full p-2 border rounded" />
+              <input name="title" value={form.title} onChange={handleChange} placeholder="Course Title" className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" required />
+              <input name="slug" value={form.slug} onChange={handleChange} placeholder="Slug (unique-url)" className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" required />
+              <div className="grid grid-cols-2 gap-4">
+                <input name="category" value={form.category} onChange={handleChange} placeholder="Category" className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" />
+                <input name="duration" value={form.duration} onChange={handleChange} placeholder="Duration" className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" />
+              </div>
+              <input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price ($)" className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" required />
+              <textarea name="shortDesc" value={form.shortDesc} onChange={handleChange} placeholder="Short Description" className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" />
+              <textarea name="fullDesc" value={form.fullDesc} onChange={handleChange} placeholder="Full Description" className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" rows="4" />
 
-              <div className="border p-3 rounded bg-gray-50">
-                <h4 className="font-semibold mb-2 text-gray-700">Select Instructor</h4>
-                <select name="instructor" value={form.instructor} onChange={handleChange} className="w-full p-2 border rounded" required>
-                  <option value="">-- Select an Instructor --</option>
+              <div className="border border-slate-200 p-6 rounded-2xl bg-slate-50">
+                <h4 className="font-semibold mb-3 text-slate-500 uppercase tracking-widest text-xs">Select Instructor</h4>
+                <select name="instructor" value={form.instructor} onChange={handleChange} className="w-full p-4 rounded-xl bg-white border border-slate-200 focus:ring-2 focus:ring-[#6366F1] outline-none transition" required>
+                  <option value="">-- Choose Instructor --</option>
                   {instructors.map((inst) => (
                     <option key={inst._id} value={inst._id}>
                       {inst.name}
@@ -253,8 +255,8 @@ export default function ManageCourses() {
                 <textarea name="description" value={lessonForm.description} onChange={handleLessonChange} placeholder="Lesson Description" className="w-full p-2 border rounded mb-2" />
                 <input type="file" onChange={(e) => setLessonFile(e.target.files[0])} className="w-full border rounded p-2 mb-2" />
 
-                <button type="button" onClick={handleAddLesson} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">
-                  Add Lesson
+                <button type="button" onClick={handleAddLesson} className="bg-[#6366F1] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#4F46E5] w-full transition shadow-lg shadow-indigo-500/10">
+                  Add Lesson to Course
                 </button>
 
                 {form.lessons.length > 0 && (
@@ -271,13 +273,13 @@ export default function ManageCourses() {
                 )}
               </div>
 
-              <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full border rounded p-2" />
+              <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="w-full p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-[#6366F1] font-semibold file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-[#6366F1] file:text-white" />
 
-              <button type="submit" className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">
-                {currentCourse ? "Update Course" : "Add Course"}
+              <button type="submit" className="bg-[#0F172A] text-white w-full py-4 rounded-full font-semibold hover:bg-[#6366F1] transition shadow-xl mt-6">
+                {currentCourse ? "Save Course Changes" : "Publish Course Now"}
               </button>
-              <button type="button" onClick={() => setIsModalOpen(false)} className="w-full py-2 border rounded hover:bg-gray-100">
-                Cancel
+              <button type="button" onClick={() => setIsModalOpen(false)} className="w-full py-4 text-slate-500 font-semibold hover:text-slate-700 transition">
+                Discard Changes
               </button>
             </form>
           </div>

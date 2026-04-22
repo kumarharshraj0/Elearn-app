@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/api', // Adjust this to your backend API URL
+  baseURL: 'https://elearn.hharshportfolio.com/api', // Adjust this to your backend API URL
 });
 
 instance.interceptors.request.use(

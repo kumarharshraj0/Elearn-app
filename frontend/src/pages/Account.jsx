@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export default function Account() {
   const {
@@ -98,12 +98,12 @@ export default function Account() {
   if (!user)
     return (
       <div className="h-screen flex flex-col items-center justify-center text-center">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">
+        <h2 className="text-2xl font-semibold text-red-600 mb-4">
           You are not logged in
         </h2>
         <Link
           to="/signin"
-          className="px-6 py-2 bg-lime-400 rounded-full text-black font-semibold hover:bg-lime-500 transition"
+          className="px-8 py-3 bg-[#6366F1] rounded-full text-white font-semibold hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20"
         >
           Go to Sign In
         </Link>
@@ -111,18 +111,18 @@ export default function Account() {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-6 md:px-12 lg:py-30">
+    <div className="min-h-screen bg-slate-50 py-12 px-6 md:px-12 lg:py-30">
       {/* 🧑‍💼 Profile Section */}
       <div className="bg-white rounded-2xl shadow-md p-8 flex flex-col md:flex-row items-center gap-8 mb-8">
         <div className="relative">
           <img
             src={preview ||user?.profileImage   || "/default-avatar.png"}
             alt={user.name}
-            className="w-32 h-32 rounded-full object-cover border-4 border-lime-400"
+            className="w-32 h-32 rounded-full object-cover border-4 border-[#6366F1]"
           />
           <label
             htmlFor="profilePic"
-            className="absolute bottom-0 right-0 bg-lime-400 p-2 rounded-full cursor-pointer hover:bg-lime-500 transition"
+            className="absolute bottom-0 right-0 bg-[#6366F1] p-2 rounded-full cursor-pointer hover:bg-[#4F46E5] transition"
           >
             📷
           </label>
@@ -136,7 +136,7 @@ export default function Account() {
         </div>
 
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-3xl font-bold text-[#0e2d25] mb-2">
+          <h1 className="text-3xl font-semibold text-[#0F172A] mb-2">
             {user.name}
           </h1>
           <p className="text-gray-600 mb-1">{user.email}</p>
@@ -144,7 +144,7 @@ export default function Account() {
             className={`inline-block mt-1 px-4 py-1 rounded-full text-sm font-medium ${
               user.role === "admin"
                 ? "bg-red-100 text-red-700"
-                : "bg-green-100 text-green-700"
+                : "bg-indigo-100 text-indigo-700"
             }`}
           >
             {user.role.toUpperCase()}
@@ -154,7 +154,7 @@ export default function Account() {
             <div className="mt-4">
               <button
                 onClick={handleUpload}
-                className="px-4 py-2 bg-lime-400 text-black font-semibold rounded-full hover:bg-lime-500 transition"
+                className="px-6 py-2 bg-[#6366F1] text-white font-semibold rounded-full hover:bg-[#4F46E5] transition shadow-md shadow-indigo-500/20"
               >
                 Upload Profile Picture
               </button>
@@ -164,13 +164,13 @@ export default function Account() {
           <div className="mt-4 flex justify-center md:justify-start gap-3">
             <button
               onClick={() => setIsEditing(true)}
-              className="px-5 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
+              className="px-6 py-2 bg-slate-100 text-slate-700 border border-slate-200 rounded-full hover:bg-slate-200 transition font-semibold"
             >
               Edit Profile
             </button>
             <button
               onClick={signout}
-              className="px-5 py-2 bg-[#0e2d25] text-white rounded-full hover:bg-lime-400 hover:text-black transition"
+              className="px-6 py-2 bg-[#0F172A] text-white rounded-full hover:bg-[#6366F1] transition font-semibold"
             >
               Logout
             </button>
@@ -181,8 +181,8 @@ export default function Account() {
       {/* ✏️ Edit Profile Modal */}
       {isEditing && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-          <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md relative">
-            <h2 className="text-2xl font-bold text-center text-[#0e2d25] mb-6">
+          <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-md relative border border-slate-100">
+            <h2 className="text-2xl font-semibold text-center text-[#0F172A] mb-8">
               Edit Profile
             </h2>
 
@@ -195,7 +195,7 @@ export default function Account() {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-lime-400"
+                className="w-full border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
               />
 
               <input
@@ -206,7 +206,7 @@ export default function Account() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-lime-400"
+                className="w-full border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
               />
 
               <input
@@ -217,7 +217,7 @@ export default function Account() {
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-lime-400"
+                className="w-full border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-[#6366F1] outline-none transition"
               />
 
               <div className="flex justify-between gap-4 mt-6">
@@ -230,7 +230,7 @@ export default function Account() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-lime-400 text-black font-semibold rounded-full hover:bg-lime-500 transition"
+                  className="flex-1 px-4 py-2 bg-[#6366F1] text-white font-semibold rounded-full hover:bg-[#4F46E5] transition"
                 >
                   Save Changes
                 </button>
@@ -241,14 +241,14 @@ export default function Account() {
       )}
 
       {/* 🎯 Dashboard Section */}
-      <div className="bg-white rounded-2xl shadow-md p-6 mb-12 text-center">
-        <h2 className="text-xl font-semibold text-[#0e2d25] mb-6">
-          Go to Dashboard
+      <div className="bg-white rounded-3xl p-8 mb-12 text-center border border-slate-100">
+        <h2 className="text-xl font-semibold text-[#0F172A] mb-8 uppercase tracking-widest text-sm">
+          Go to Dashboards
         </h2>
         <div className="flex flex-wrap justify-center gap-4">
           <button
             onClick={() => navigate("/user/dashboard")}
-            className="px-6 py-2 bg-lime-400 text-black font-semibold rounded-full hover:bg-lime-500 transition"
+            className="px-8 py-3 bg-[#6366F1] text-white font-semibold rounded-full hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20"
           >
             Go to User Dashboard
           </button>
@@ -264,8 +264,8 @@ export default function Account() {
       </div>
 
       {/* 📚 Enrolled Courses */}
-      <div className="bg-white rounded-2xl shadow-md p-8 mb-10">
-        <h2 className="text-2xl font-bold text-[#0e2d25] mb-6">
+      <div className="bg-white rounded-3xl shadow-sm p-10 mb-10 border border-slate-100">
+        <h2 className="text-3xl font-semibold text-[#0F172A] mb-8 tracking-tight">
           Enrolled Courses
         </h2>
 
@@ -289,15 +289,15 @@ export default function Account() {
                   alt={course.title}
                   className="w-full h-40 object-cover rounded-lg mb-4"
                 />
-                <h3 className="text-lg font-semibold text-[#0e2d25] mb-2">
+                <h3 className="text-lg font-semibold text-[#0F172A] mb-2">
                   {course.title}
                 </h3>
                 <p className="text-sm text-gray-600 mb-4">
                   Progress: {course.progress || 0}%
                 </p>
                 <Link
-                  to={`/courses/${course._id}`}
-                  className="inline-block px-4 py-2 bg-lime-400 text-black font-semibold rounded-full hover:bg-lime-500 transition"
+                  to={`/enrolled-courses/${course._id}`}
+                  className="inline-block px-6 py-2.5 bg-[#6366F1] text-white font-semibold rounded-full hover:bg-[#4F46E5] transition shadow-md shadow-indigo-500/20 text-sm"
                 >
                   Continue Learning →
                 </Link>

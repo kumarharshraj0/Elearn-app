@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const API_BASE_URL = 'https://elearn-app-backend.onrender.com/api/auth';
+  const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000/api') + '/auth';
 
   // ✅ Load token + user on mount
   useEffect(() => {

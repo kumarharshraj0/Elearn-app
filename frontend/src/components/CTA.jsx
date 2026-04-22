@@ -39,12 +39,12 @@ export default function CTA() {
         </div>
       </div>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-[#133830] bg-opacity-95"></div>
+      {/* Indigo Overlay */}
+      <div className="absolute inset-0 bg-[#0F172A] bg-opacity-90"></div>
 
       {/* Text Content */}
       <div className="relative z-10 text-center text-white max-w-2xl px-4">
-        <h2 className="text-3xl md:text-5xl font-bold mb-4">
+        <h2 className="text-3xl md:text-5xl font-semibold mb-4">
           Join a thriving global learning community
         </h2>
         <p className="text-lg mb-6">
@@ -52,7 +52,7 @@ export default function CTA() {
           collaborate on projects, and grow together in a supportive and
           inspiring environment.
         </p>
-        <button className="bg-lime-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-lime-500 transition">
+        <button className="bg-[#6366F1] text-white px-8 py-3.5 rounded-full font-semibold hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/30">
           Join Now
         </button>
       </div>

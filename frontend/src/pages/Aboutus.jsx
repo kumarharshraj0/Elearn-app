@@ -8,10 +8,10 @@ import Footer from "../components/Footer";
 
 // Theme colors (same as login page)
 const COLORS = {
-  bgDark: "#0c2e25",
-  card: "#10372b",
-  accent: "#b3ff00",
-  ink: "#e8f3ef",
+  bgDark: "#0F172A",
+  card: "#1E293B",
+  accent: "#6366F1",
+  ink: "#F8FAFC",
 };
 
 export default function AboutUs() {
@@ -24,7 +24,7 @@ export default function AboutUs() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center font-extrabold tracking-tight text-4xl md:text-6xl"
+            className="text-center font-semibold tracking-tight text-4xl md:text-6xl"
             style={{ color: COLORS.ink }}
           >
             Skills made simple,
@@ -56,10 +56,10 @@ export default function AboutUs() {
             transition={{ duration: 0.6 }}
             className="order-2 md:order-1"
           >
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#0f2f23]">Who we are</h2>
+            <h2 className="text-4xl md:text-5xl font-semibold text-[#0f2f23]">Who we are</h2>
             <div className="mt-6 space-y-5 text-gray-700 text-lg leading-8">
               <p>
-                At Edumile, we believe learning should be accessible to everyone. Our mission is to make
+                At StackPath, we believe learning should be accessible to everyone. Our mission is to make
                 skill development simple, flexible, and effective, empowering learners to achieve their goals on
                 their own terms.
               </p>
@@ -78,8 +78,7 @@ export default function AboutUs() {
              <Link 
              to= {`/Courses`}
                 
-                className="px-6 py-4 mt-[4vh] rounded-full bg-[#BCE955] text-black text-lg font-semibold hover:bg-lime-500 transition"
-                style={{ color: "#0b0f0e" }}
+                className="px-8 py-4 mt-[4vh] rounded-full bg-[#6366F1] text-white text-lg font-semibold hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-500/20"
               >
                 Explore Courses
 

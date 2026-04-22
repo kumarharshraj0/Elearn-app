@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCourses } from "../context/CourseContext";
 import { useAuth } from "../context/AuthContext";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import StarRating from "../components/StarRating"; // Assuming a StarRating component exists or will be created
 
 export default function CourseDetail() {
@@ -73,13 +73,13 @@ export default function CourseDetail() {
   if (!course) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <h2 className="text-2xl font-bold text-red-600">Course Not Found</h2>
+        <h2 className="text-2xl font-semibold text-red-600">Course Not Found</h2>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#0e2d25] text-white min-h-[110vh]">
+    <div className="bg-[#0F172A] text-white min-h-[110vh]">
       {/* Hero Section */}
       <section className="pt-20 pb-10 md:py-24 px-6 md:px-16 flex flex-col md:flex-row items-center gap-12 lg:py-[30vh]">
         {/* Course Image */}
@@ -105,7 +105,7 @@ export default function CourseDetail() {
               {course.rating?.toFixed(1)} ({course.numReviews} Reviews)
             </p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">
+          <h1 className="text-4xl md:text-5xl font-semibold mb-3">
             {course.title}
           </h1>
           <p className="text-gray-200 mb-5 leading-relaxed">
@@ -119,13 +119,13 @@ export default function CourseDetail() {
             </span>
           </p>
 
-          <h2 className="text-3xl font-bold mb-2">${course.price}</h2>
+          <h2 className="text-3xl font-semibold mb-2">${course.price}</h2>
 
           <Link
             to="/checkout"
             state={{ course }} // Pass course data to checkout page
-            className="inline-block mt-3 px-8 py-3 bg-lime-400 text-black font-semibold rounded-full
-                       shadow-md hover:bg-white hover:text-[#0e2d25] transition"
+            className="inline-block mt-3 px-8 py-3 bg-[#6366F1] text-white font-semibold rounded-full
+                       shadow-md hover:bg-white hover:text-[#0F172A] transition"
           >
             Get Access To This Course
           </Link>
@@ -146,7 +146,7 @@ export default function CourseDetail() {
         <div className="grid md:grid-cols-2 gap-10">
           {/* Lessons Section */}
           <div>
-            <h2 className="text-2xl font-bold mb-6 text-[#0e2d25]">
+            <h2 className="text-2xl font-semibold mb-6 text-[#0F172A]">
               Lessons in this course
             </h2>
             <div className="space-y-3">
@@ -164,8 +164,8 @@ export default function CourseDetail() {
           </div>
 
           {/* Course Information */}
-          <div className="bg-gray-50 rounded-2xl p-6 shadow-md">
-            <h3 className="text-xl font-bold mb-4 text-[#0e2d25]">
+          <div className="bg-slate-50 rounded-2xl p-8 border border-slate-100">
+            <h3 className="text-xl font-semibold mb-4 text-[#0F172A]">
               Course Information
             </h3>
             <ul className="space-y-2 text-gray-700">
@@ -195,8 +195,8 @@ export default function CourseDetail() {
             <Link
               to="/checkout"
               state={{ course }} // Pass course data to checkout page
-              className="block mt-6 text-center bg-[#0e2d25] text-white py-3 rounded-full
-                         font-semibold hover:bg-lime-400 hover:text-black transition"
+              className="block mt-6 text-center bg-[#0F172A] text-white py-4 rounded-full
+                         font-semibold hover:bg-[#6366F1] transition shadow-lg"
             >
               Get Access To This Course
             </Link>
@@ -206,7 +206,7 @@ export default function CourseDetail() {
 
       {/* Instructor Section */}
       <section className="bg-white text-black px-6 md:px-16 lg:px-32 py-16">
-        <h2 className="text-2xl font-bold mb-6 text-[#0e2d25]">
+        <h2 className="text-2xl font-semibold mb-6 text-[#0F172A]">
           Meet your teacher
         </h2>
         <div className="flex items-center gap-6">
@@ -216,7 +216,7 @@ export default function CourseDetail() {
             className="w-20 h-20 rounded-full object-cover"
           />
           <div>
-            <h3 className="font-bold text-lg text-[#0e2d25]">
+            <h3 className="font-semibold text-lg text-[#0F172A]">
               {course.instructor?.name}
             </h3>
             <p className="text-gray-600 mb-2">{course.instructor?.experience}</p>
@@ -228,8 +228,8 @@ export default function CourseDetail() {
       </section>
 
       {/* Reviews Section */}
-      <section className="bg-white text-black px-6 md:px-16 lg:px-32 py-16">
-        <h2 className="text-2xl font-bold mb-6 text-[#0e2d25]">
+      <section className="bg-white text-black px-6 md:px-16 lg:px-32 py-16 border-t border-slate-100">
+        <h2 className="text-2xl font-semibold mb-6 text-[#0F172A]">
           Student Reviews ({course.numReviews})
         </h2>
 
@@ -238,7 +238,7 @@ export default function CourseDetail() {
             <h3 className="text-xl font-semibold mb-4">Leave a Review</h3>
             <form onSubmit={submitReviewHandler} className="space-y-4">
               <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-semibold mb-2">
                   Rating
                 </label>
                 <select
@@ -256,7 +256,7 @@ export default function CourseDetail() {
                 </select>
               </div>
               <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-semibold mb-2">
                   Comment
                 </label>
                 <textarea
@@ -269,7 +269,7 @@ export default function CourseDetail() {
               </div>
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-[#6366F1] hover:bg-[#4F46E5] text-white font-semibold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition"
               >
                 Submit Review
               </button>
@@ -282,9 +282,9 @@ export default function CourseDetail() {
         ) : (
           <div className="space-y-8">
             {course.reviews?.map((review) => (
-              <div key={review._id} className="border-b pb-4">
-                <div className="flex items-center mb-2">
-                  <p className="font-semibold text-[#0e2d25] mr-2">{review.user.name}</p>
+              <div key={review._id} className="border-b border-slate-100 pb-6">
+                <div className="flex items-center mb-3">
+                  <p className="font-semibold text-[#0F172A] mr-3">{review.user.name}</p>
                   <StarRating rating={review.rating} />
                 </div>
                 <p className="text-gray-700 mb-2">{review.comment}</p>
